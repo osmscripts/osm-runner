@@ -3,6 +3,8 @@
 use OsmScripts\Core\Hints\ComposerLockHint;
 
 call_user_func(function () {
+    global $argv;
+
     $name = basename(__FILE__);
     if (!is_file('composer.lock') || !($contents = file_get_contents('composer.lock'))) {
         throw new Exception("'composer.lock' not found");
@@ -13,16 +15,18 @@ call_user_func(function () {
         throw new Exception("'composer.lock' is not valid JSON file");
     }
 
-    foreach (['packages', 'packages-dev'] as $packages) {
-        foreach ($json->$packages ?? [] as $package) {
-            foreach ($package->bin ?? [] as $script) {
-                if (basename($script) === $name) {
-                    /** @noinspection PhpIncludeInspection */
-                    include "vendor/{$package->name}/{$script}";
-
-                    return;
-                }
-            }
+    $args = implode(' ', array_slice($argv, 1));
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        if (file_exists("vendor\\bin\\{$name}.bat")) {
+            echo "vendor\\bin\\{$name}.bat $args 2>&1\n";
+            passthru("vendor\\bin\\{$name}.bat $args 2>&1", $exitCode);
+            exit($exitCode);
+        }
+    }
+    else {
+        if (file_exists("vendor/bin/{$name}")) {
+            passthru("vendor/bin/{$name} $args 2>&1", $exitCode);
+            exit($exitCode);
         }
     }
 
