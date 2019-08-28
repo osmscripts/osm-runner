@@ -1,5 +1,13 @@
 {
     "name": "osmscripts\/osm-runner",
+    "description": "Command-line utility for running code generation and maintenance commands installed into the Osm framework-based project in current directory.Library of useful classes for fast development of shell commands.",
+    "license": "GPL-3.0-only",
+    "authors": [
+        {
+            "name": "Vladislav Osmianskij",
+            "email": "vlaosm@gmail.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "OsmScripts\\OsmRunner\\": "src\/"
