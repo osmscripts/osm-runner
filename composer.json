@@ -15,7 +15,7 @@
     },
     "require": {
         "php": "^7.2",
-        "osmscripts\/core": "dev-master"
+        "osmscripts\/core": "^1.0"
     },
     "bin": [
         "osm"
