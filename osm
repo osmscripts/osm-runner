@@ -3,7 +3,7 @@
 
 use OsmScripts\Core\Script;
 
-if (!is_dir('vendor/osmphp/framework')) {
+if (!is_dir('vendor/osmphp/framework2')) {
     die("Before running this command, make directory of your " .
         "Osm project a current directory");
 }
